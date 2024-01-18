@@ -1,0 +1,9 @@
+openpyxl==3.1.0
+pandas==2.0.3
+psycopg2
+python-dotenv==1.0.0
+sqlalchemy
+streamlit==1.24.0
+streamlit-authenticator==0.2.1
+st-pages==0.4.0
+xlsxwriter
