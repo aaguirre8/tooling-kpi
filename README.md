@@ -24,7 +24,7 @@ $ pip install -r requirements.txt
 
 
 ## Requirements
-1. Docker installed.
+1. PostgreSQL installed.
 
 
 ## Known issues
