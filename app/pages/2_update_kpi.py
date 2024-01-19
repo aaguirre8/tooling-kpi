@@ -1,5 +1,4 @@
 import os
-from io import StringIO
 
 from dotenv import load_dotenv
 import pandas as pd
@@ -98,7 +97,7 @@ with tab4:
         df = pd.read_sql(sql_queries.COMPLETED_WORK_ORDERS_QUERY, con)
         column_mapping = {col: col.replace("_", " ").title() for col in df.columns}
         df = df.rename(columns=column_mapping)
-        
+
     st.dataframe(
         df,
         use_container_width=True,
