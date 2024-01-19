@@ -10,7 +10,7 @@ from src.etl import utils
 from src.Logger import Logger
 
 
-def main():
+def main(df: pd.DataFrame) -> None:
 
     logger_manager = Logger("etl")
     logger = logger_manager.get_logger()
@@ -25,10 +25,6 @@ def main():
     output_table = os.getenv("COMPLETED_WORK_ORDERS_TABLE")
 
     # Extract data from source
-    df = pd.read_excel(
-        "notebooks/Tooling Dashboard - TAM5.xlsx", skiprows=1, date_format="Modified Date"
-    )
-
     logger.info(f"Extracted data from source - {df.head(5)}")
 
     # Define schema

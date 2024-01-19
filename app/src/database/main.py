@@ -1,8 +1,8 @@
 import os
 
 from dotenv import load_dotenv
-from src.database.DatabaseManager import DatabaseManager
-from src.database import table_queries
+from app.src.database.DatabaseManager import DatabaseManager
+from app.src.database import ddl
 from src.Logger import Logger
 
 
@@ -40,7 +40,7 @@ def main():
     # Create tables
     conn = db_manager.create_connection()
     with conn as con:
-        db_manager.create_tables(table_queries.CREATE_COMPLETED_WORK_ORDERS_TABLE, con)
+        db_manager.create_tables(ddl.CREATE_COMPLETED_WORK_ORDERS_TABLE, con)
 
 
 if __name__ == "__main__":

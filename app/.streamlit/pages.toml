@@ -1,0 +1,11 @@
+[[pages]]
+path = "app.py"
+name = "User Dashboard"
+
+[[pages]]
+path = "pages/1_setup_database.py"
+name = "Setup Database"
+
+[[pages]]
+path = "pages/2_update_kpi.py"
+name = "Update KPI"
