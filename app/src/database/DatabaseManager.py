@@ -1,7 +1,9 @@
 import logging
 
+import pandas as pd
 import psycopg2
 from psycopg2 import sql
+from sqlalchemy import create_engine
 
 
 class DatabaseManager:
@@ -72,7 +74,43 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f"Error creating tables: {e}")
 
-    def create_default_connection_engine(self) -> psycopg2.connect:
+    def insert_data(self, df: pd.DataFrame, table_name: str) -> None:
+        """
+        Inserts data from a pandas DataFrame into a specified database table.
+
+        Args:
+            df (pd.DataFrame): The DataFrame containing the data to insert.
+            table_name (str): The name of the table in which to insert the data.
+
+        Raises:
+            Exception: If the data insertion fails.
+        """
+        logger = self.logger
+        try:
+
+            # Create an SQLAlchemy engine for the specified database
+            # The SQLAlchemy engine is used by pandas' to_sql method to insert data into the database
+            engine = create_engine(
+                f"postgresql://{self._user}:{self._password}@{self._host}:{self._port}/{self._db_name}"
+            )
+
+            # The reason for not using the context manager is that the SQLAlchemy engine
+            # is not compatible with it. The engine is closed after the context manager exits,
+            # which prevents pandas from inserting data into the database.
+            df.to_sql(
+                table_name,
+                engine,
+                if_exists="append",
+                index=False,
+                method="multi"
+                )
+            
+            engine.dispose()
+            
+        except Exception as e:
+            logger.error(f"Error inserting data into {table_name}: {e}")
+
+    def create_default_connection(self) -> psycopg2.connect:
         """
         Creates a connection engine to the default PostgreSQL database.
 
@@ -101,7 +139,7 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f"Error creating connection engine: {e}")
 
-    def create_connection_engine(self) -> psycopg2.connect:
+    def create_connection(self) -> psycopg2.connect:
         """
         Creates a connection engine to the specified database.
 

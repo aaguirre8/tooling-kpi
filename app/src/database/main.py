@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from src.database.DatabaseManager import DatabaseManager
 from src.database import table_queries
-from src.database.Logger import Logger
+from src.Logger import Logger
 
 
 def main():
@@ -34,11 +34,11 @@ def main():
     # with context block is not used here
     # CREATE DATABASE cannot run inside a transaction block
     # Refer to https://www.postgresql.org/docs/9.1/sql-createdatabase.html for more information
-    default_conn = db_manager.create_default_connection_engine()
+    default_conn = db_manager.create_default_connection()
     db_manager.create_database(default_conn)
 
     # Create tables
-    conn = db_manager.create_connection_engine()
+    conn = db_manager.create_connection()
     with conn as con:
         db_manager.create_tables(table_queries.CREATE_COMPLETED_WORK_ORDERS_TABLE, con)
 
