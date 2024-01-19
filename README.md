@@ -27,10 +27,6 @@ $ pip install -r requirements.txt
 1. Docker installed.
 
 
-## Run Locally
-1. Build docker image:
-```
-docker build -t tooling-image .
-```
-2. Run docker container:
-```
+## Known issues
+1. Duplicated work orders caused change of technician assigned to the order.
+    Logic TBD.
